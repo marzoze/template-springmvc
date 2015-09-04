@@ -1,0 +1,53 @@
+
+@media print{
+	* {
+		 background-color: white !important;
+		 background-image: none !important;
+		 color: black;
+		 
+	}
+	
+	body{
+		margin: 0px;
+		padding: 0px;
+		border: 0px solid;
+		background: white;
+		font-family: Arial, Helvetica, sans-serif;
+	   font-size: 10px;
+	   color: black;
+	   zoom:90%;
+		
+	}
+	
+	.DONTPrint, .messages {
+	display: none;
+	}
+	
+	.DOPrint {
+	display: block;
+	}
+	
+	.DOCheck {
+	display: table;
+	}
+	
+	.tablePrint{
+		border: 0.0em solid;
+		padding: 0.0em;
+		width:100%;
+		margin:0;
+		float: none !important;
+		color: black;
+       background: transparent none;
+       display: table;
+       
+		
+	}
+	
+	.tblList, .tdListTitle, .tdListContent, .tblDomain, .tdTitle , .tdContent, .tblPaging, .tdPagingTotal, .tdPagingNum, .tdTitle2, .tdContent2{
+		color: black;
+		
+	
+	}
+}
+
