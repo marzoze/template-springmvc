@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	
+	
+	<!-- ====================================================== -->
+	<!--        Define the property placeholder configuration   -->
+	<!-- ====================================================== -->
+	<context:property-placeholder location="WEB-INF/config/config.properties"/>
+	<util:properties id="config" location="WEB-INF/config/config.properties"/>
+	<context:annotation-config/>			
+	
+	<!-- no need to declare each Services -->
+	<context:component-scan base-package="co.id.spring.mvc"/>
+	
+	<!-- no need to declare transaction setting per method -->
+	<tx:annotation-driven/>
+	
+	<!-- ====================================================== -->
+	<!-- CONFIGURATION THE JDBC CONNECTION 						-->
+	<!-- @see : config.properties 								-->
+	<!-- ====================================================== -->
+	<bean id="dataSource"		
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"
+		p:driverClassName="${jdbc.driver}"
+		p:url="${jdbc.url}"
+		p:username="${jdbc.username}"
+		p:password="${jdbc.password}"
+		p:maxIdle="${dbcp.maxIdle}"
+		p:maxActive="${dbcp.maxActive}" 
+		p:maxWait="${dbcp.maxWait}"
+		p:initialSize="${dbcp.initialSize}"
+		p:minIdle="${dbcp.minIdle}"
+		p:validationQuery="${dbcp.validationQuery}" />	
+		
+		
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+		p:dataSource-ref="dataSource"
+		p:configLocation="WEB-INF/config/hibernate.cfg.xml">
+		<property name="packagesToScan">
+		    <list>
+		        <value>co.id.spring.mvc.domain</value>
+		        <value>id.co.acelife.concorde</value>
+		        <value>id.co.acelife.model.ebao</value>		        
+		    </list>
+		</property>
+		<property name="eventListeners">
+			<map>
+				<entry key="merge">
+					<bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
+				</entry>
+			</map>
+		</property>	
+	</bean>	
+
+	<!-- ====================================================== -->
+	<!--         Configuration the transaction manager      	-->
+	<!-- ====================================================== -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory" />
+		
+			
+	<!-- ====================================================== -->
+	<!--      Configuration the Application Message Bundle      -->
+	<!-- ====================================================== -->	
+	<bean id="messageSource"
+	    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	    <property name="basename" value="WEB-INF/config/messages" />
+	    <property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+	
+	<!-- ====================================================== -->
+	<!--      Configuration the Multipart Resolver		        -->
+	<!-- ====================================================== -->
+	<bean id="multipartResolver" 
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000" />
+	</bean>
+	
+	
+	<!--  	
+	<bean id="localeChangeInterceptor"
+	    class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+	    <property name="paramName" value="lang" />
+	</bean>
+	 
+	<bean id="localeResolver"
+	    class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+	    <property name="defaultLocale" value="en"/>
+	</bean>
+	 
+	<bean id="handlerMapping"
+	    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	    <property name="interceptors">
+	        <ref bean="localeChangeInterceptor" />
+	    </property>
+	</bean>				
+	-->
+</beans>
