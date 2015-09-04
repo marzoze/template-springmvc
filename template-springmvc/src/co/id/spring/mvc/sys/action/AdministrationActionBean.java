@@ -2,6 +2,7 @@ package co.id.spring.mvc.sys.action;
 
 import id.co.acelife.concorde.common.MDepartment;
 import id.co.acelife.model.ebao.TPhysicalLocation;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import co.id.spring.mvc.domain.MSecGroup;
 import co.id.spring.mvc.domain.MSecRole;
 import co.id.spring.mvc.domain.MSecUser;
-import co.id.spring.mvc.domain.TWorkdays;
-import co.id.spring.mvc.service.MDepartmentService;
-import co.id.spring.mvc.service.TPhysicalLocationService;
-import co.id.spring.mvc.service.TWorkdaysService;
 import co.id.spring.mvc.service.UserService;
 import co.id.spring.mvc.sys.config.CommonConstants;
 import co.id.spring.mvc.sys.util.ComboUtil;

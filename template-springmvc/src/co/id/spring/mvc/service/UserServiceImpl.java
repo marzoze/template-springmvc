@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.id.acelife.postracking.dao.MSecGroupDao;
-import co.id.acelife.postracking.dao.MSecGroupRightDao;
-import co.id.acelife.postracking.dao.MSecRoleDao;
-import co.id.acelife.postracking.dao.MSecRoleGroupDao;
-import co.id.acelife.postracking.dao.MSecUserDao;
+import co.id.spring.mvc.dao.MSecGroupDao;
+import co.id.spring.mvc.dao.MSecGroupRightDao;
+import co.id.spring.mvc.dao.MSecRoleDao;
+import co.id.spring.mvc.dao.MSecRoleGroupDao;
+import co.id.spring.mvc.dao.MSecUserDao;
 import co.id.spring.mvc.domain.MSecGroup;
 import co.id.spring.mvc.domain.MSecGroupRight;
 import co.id.spring.mvc.domain.MSecRight;

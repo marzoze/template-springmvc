@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.id.acelife.postracking.dao.MUserDao;
+import co.id.spring.mvc.dao.MUserDao;
 import co.id.spring.postracking.domain.MUser;
 
 @Service("mUserService")

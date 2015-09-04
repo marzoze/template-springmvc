@@ -1,9 +1,8 @@
 package co.id.spring.mvc.validator;
 
-import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import co.id.spring.mvc.domain.MPosTransaction;
+
 import co.id.spring.mvc.sys.util.Constants;
 
 public class MPosTransactionValidator implements Validator {
