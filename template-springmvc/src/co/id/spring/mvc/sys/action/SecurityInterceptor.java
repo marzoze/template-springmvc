@@ -9,7 +9,7 @@ import co.id.spring.mvc.domain.MSecUser;
 import co.id.spring.mvc.sys.util.Constants;
 
 /**
- * This class represent of Security Filter for POS Tracking Application.
+ * This class represent of Security Filter.
  * 
  * @author FATCHX
  * @category

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * This class represent of Security Filter for POS Tracking Application.
+ * This class represent of Security Filter.
  * 
  */
 public class SecurityFilter implements Filter {
