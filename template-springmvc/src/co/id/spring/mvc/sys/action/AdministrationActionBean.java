@@ -1,14 +1,9 @@
 package co.id.spring.mvc.sys.action;
 
-import id.co.acelife.concorde.common.MDepartment;
-import id.co.acelife.model.ebao.TPhysicalLocation;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import co.id.spring.mvc.domain.MSecGroup;
 import co.id.spring.mvc.domain.MSecRole;
 import co.id.spring.mvc.domain.MSecUser;
@@ -40,9 +34,6 @@ public class AdministrationActionBean extends MainActionBean {
 	private static final Logger log = Logger.getLogger(AdministrationActionBean.class);
 	
 	@Autowired private UserService userService;
-	@Autowired private MDepartmentService mDepartmentService;
-	@Autowired private TPhysicalLocationService tPhysicalLocationService;
-	@Autowired private TWorkdaysService tWorkdaysService;
 	
 	@RequestMapping(value="/role", method = RequestMethod.GET)
 	public String loadRole(ModelMap model){
@@ -252,36 +243,6 @@ public class AdministrationActionBean extends MainActionBean {
 		return json.serialize();
 	}
 	
-	@RequestMapping(value="/role/getDepartment")
-	@ResponseBody
-	public String getDepartment(HttpServletRequest request){
-		Paging paging = new Paging();
-		paging.setStart((this.getPage(request) - 1) * this.getRows(request));
-		paging.setEnd((this.getPage(request) * this.getRows(request)));
-		
-		List<MDepartment> departments = mDepartmentService.getDepartmentWithPagination(paging.getStart(), paging.getEnd());
-		
-		//set total page
-		int totalRec = mDepartmentService.count().intValue();
-		paging.setTotalResults(totalRec);
-		int totalPage = 1;
-		if(paging.getTotalResults() > 0) {
-			if(paging.getTotalResults() % this.getRows(request) > 0) 
-				totalPage = (paging.getTotalResults() / this.getRows(request)) + 1;
-			else
-				totalPage = (paging.getTotalResults() / this.getRows(request));			
-		}
-		
-		JSONUtil json = new JSONUtil();
-		json.addData(Constants.COMMON.JQGRID.TOTAL,totalPage);
-		json.addData(Constants.COMMON.JQGRID.PAGE, this.getPage(request));
-		json.addData(Constants.COMMON.JQGRID.RECORDS, paging.getTotalResults());
-		json.addData(Constants.COMMON.JQGRID.ROWS, departments);		
-		json.addDateField(Constants.COMMON.JQGRID.UPLOAD_TIMESTAMP);
-		json.setDateFormat(CommonConstants.DATE_FORMAT_HOUR);
-		return json.serialize();
-	}
-	
 	@RequestMapping(value="/role/getEmployee")
 	@ResponseBody
 	public String getEmployee(HttpServletRequest request){
@@ -321,54 +282,7 @@ public class AdministrationActionBean extends MainActionBean {
 		json.setDateFormat(CommonConstants.DATE_FORMAT_HOUR);
 		return json.serialize();
 	}
-	
-	@RequestMapping(value="/role/getWorkdays")
-	@ResponseBody
-	public String getWorkingDays(HttpServletRequest request) {
-		String month = request.getParameter("month");
-		Paging paging = new Paging();
-		paging.setStart((this.getPage(request) - 1) * this.getRows(request));
-		paging.setEnd((this.getPage(request) * this.getRows(request)));
-		List<TWorkdays> workdays = tWorkdaysService.getWorkdaysWithPagination(
-				paging.getStart(), paging.getEnd(), month);
-		
-		//set total page
-		int totalRec = tWorkdaysService.count(month).intValue();
-		paging.setTotalResults(totalRec);
-		int totalPage = 1;
-		if(paging.getTotalResults() > 0) {
-			if(paging.getTotalResults() % this.getRows(request) > 0) 
-				totalPage = (paging.getTotalResults() / this.getRows(request)) + 1;
-			else
-				totalPage = (paging.getTotalResults() / this.getRows(request));			
-		}
-		
-		JSONUtil json = new JSONUtil();
-		json.addData(Constants.COMMON.JQGRID.TOTAL,totalPage);
-		json.addData(Constants.COMMON.JQGRID.PAGE, this.getPage(request));
-		json.addData(Constants.COMMON.JQGRID.RECORDS, paging.getTotalResults());
-		json.addData(Constants.COMMON.JQGRID.ROWS, workdays);		
-		json.addDateField(Constants.COMMON.JQGRID.UPLOAD_TIMESTAMP);
-		json.setDateFormat(CommonConstants.DATE_FORMAT_HOUR);
-		return json.serialize();
-	}
-	
-	@RequestMapping(value="getBranch")
-	@ResponseBody
-	public String getBranch(){
-		List<TPhysicalLocation> list = tPhysicalLocationService.getAll();		
-		ComboUtil<TPhysicalLocation> combo = new ComboUtil<TPhysicalLocation>(TPhysicalLocation.class, list, "locationId", "physicalLocation", Constants.COMMON.SELECT_LABEL_DEFAULT);
-		return combo.serialize();
-	}	
-	
-	@RequestMapping(value="getDepartment")
-	@ResponseBody
-	public String getDepartment(){
-		List<MDepartment> list = mDepartmentService.getDepartmentAll();
-		ComboUtil<MDepartment> combo = new ComboUtil<MDepartment>(MDepartment.class, list, "departmentId", "departmentName", Constants.COMMON.SELECT_LABEL_DEFAULT);
-		return combo.serialize();
-	}
-	
+
 	@RequestMapping(value="getRoleType")
 	@ResponseBody
 	public String getRoleType(){

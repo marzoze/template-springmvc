@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.id.spring.mvc.dao.MUserDao;
-import co.id.spring.postracking.domain.MUser;
+import co.id.spring.mvc.domain.MUser;
 
 @Service("mUserService")
 @Transactional(readOnly=true)

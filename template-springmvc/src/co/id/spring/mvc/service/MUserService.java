@@ -2,7 +2,7 @@ package co.id.spring.mvc.service;
 
 import java.util.List;
 
-import co.id.spring.postracking.domain.MUser;
+import co.id.spring.mvc.domain.MUser;
 
 public interface MUserService {
 	

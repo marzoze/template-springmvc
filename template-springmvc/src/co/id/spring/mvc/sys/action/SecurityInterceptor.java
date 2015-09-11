@@ -36,8 +36,8 @@ public class SecurityInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object obj) throws Exception {
-		boolean isAuthenticated 		= true;
-		HttpSession session 			= request.getSession(false);
+		boolean isAuthenticated = true;
+		HttpSession session 	= request.getSession(false);
 
 		MSecUser user = session != null ?
 				(MSecUser) session.getAttribute(Constants.COMMON.SESSION.USER_SESS) : null;

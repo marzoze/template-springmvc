@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<sitemesh>  
-
-  <mapping path="/login" decorator="/jsp/decorator/login-decorator.jsp" />
-  <mapping path="/*" decorator="/jsp/decorator/standard-decorator.jsp" />   
-    
-</sitemesh>
